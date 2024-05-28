@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>Adicionar Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Adicionar Time</h1>
+            <form action="{% url 'add_team' %}" method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Nome do Time:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="name" placeholder="Digite o nome do time">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-link">Adicionar Time</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

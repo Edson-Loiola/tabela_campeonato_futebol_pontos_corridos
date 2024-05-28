@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Adicionar Partida</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        /* Estilos CSS personalizados */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Adicionar Partida</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="home_team">Time da Casa</label>
+                    {{ form.home_team }}
+                </div>
+                <div class="form-group">
+                    <label for="away_team">Time Visitante</label>
+                    {{ form.away_team }}
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="button is-link">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!-- tabela/templates/tabela/standings.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tabela de Pontos Corridos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+            /* Adicionado para rolagem horizontal em telas menores */
+        }
+
+        .table-container .table {
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 14px;
+            /* Reduzindo o tamanho da fonte */
+        }
+
+        .table-container .table th,
+        .table-container .table td {
+            border: 1px solid #dbdbdb;
+            padding: 6px 4px;
+            /* Reduzindo o padding */
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-container .table th {
+            background-color: #f5f5f5;
+            font-size: 14px;
+            /* Reduzindo o tamanho da fonte */
+        }
+
+        .table-container .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-container .table tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .button.is-link {
+            background-color: #3273dc;
+            color: white;
+            font-size: 12px;
+            /* Reduzindo o tamanho da fonte */
+            padding: 6px 12px;
+            /* Reduzindo o padding */
+        }
+
+        .button.is-link:hover {
+            background-color: #276cda;
+        }
+
+        .button.is-danger {
+            background-color: #ff3860;
+            color: white;
+            font-size: 12px;
+            /* Reduzindo o tamanho da fonte */
+            padding: 6px 12px;
+            /* Reduzindo o padding */
+        }
+
+        .button.is-danger:hover {
+            background-color: #ff2747;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 768px) {
+            .table-container .table {
+                font-size: 12px;
+                /* Reduzindo ainda mais o tamanho da fonte */
+            }
+
+            .table-container .table th,
+            .table-container .table td {
+                padding: 4px;
+                /* Reduzindo ainda mais o padding */
+            }
+
+            .button.is-link,
+            .button.is-danger {
+                font-size: 10px;
+                /* Reduzindo ainda mais o tamanho da fonte */
+                padding: 4px 8px;
+                /* Reduzindo ainda mais o padding */
+            }
+
+            .table-container .table th {
+                font-size: 12px;
+                /* Reduzindo ainda mais o tamanho da fonte */
+            }
+
+            .title {
+                font-size: 18px;
+                /* Reduzindo o tamanho do título */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Tabela de Pontos Corridos</h1>
+            <a class="button is-link" href="{% url 'add_team' %}">Adicionar Time</a>
+            <a class="button is-link" href="{% url 'add_match' %}">Adicionar Partida</a>
+            <a class="button is-danger" href="{% url 'reset_championship' %}">Resetar Campeonato</a>
+            <!-- Adicionado botão Reset -->
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable is-striped is-responsive">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Time</th>
+                            <th>P</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>E</th>
+                            <th>D</th>
+                            <th>GP</th>
+                            <th>GC</th>
+                            <th>SG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for standing in standings %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="bold">{{ standing.team.name }}</td>
+                            <td class="bold">{{ standing.points }}</td>
+                            <td>{{ standing.played }}</td>
+                            <td>{{ standing.won }}</td>
+                            <td>{{ standing.drawn }}</td>
+                            <td>{{ standing.lost }}</td>
+                            <td>{{ standing.goals_for }}</td>
+                            <td>{{ standing.goals_against }}</td>
+                            <td>{{ standing.goal_difference }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h2 class="title">Inserir Resultados</h2>
+                <table class="table is-fullwidth is-hoverable is-striped is-responsive">
+                    <thead>
+                        <tr>
+                            <th>Partida</th>
+                            <th class="result">Resultado</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matches %}
+                        <tr>
+                            <td>{{ match }}</td>
+                            <td class="bold">{{ match.result }}</td>
+                            <td>
+                                <a class="button is-link" href="{% url 'update_result' match.id %}">Inserir
+                                    Resultado</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

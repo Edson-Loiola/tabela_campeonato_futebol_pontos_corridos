@@ -26,6 +26,7 @@ urlpatterns = [
     path('add-match/', views.add_match_view, name='add_match'),
     path('update-result/<int:match_id>/', views.update_result_view, name='update_result'),
     path('reset-championship/', views.reset_championship, name='reset_championship'), # Defina a URL nomeada corretamente aqui
+    path('delete_match/<int:match_id>/', views.delete_match, name='delete_match'),
     path('', views.standings_view),
 ]
 

@@ -112,7 +112,11 @@
             <h1 class="title">Tabela de Pontos Corridos</h1>
             <a class="button is-link" href="{% url 'add_team' %}">Adicionar Time</a>
             <a class="button is-link" href="{% url 'add_match' %}">Adicionar Partida</a>
-            <a class="button is-danger" href="{% url 'reset_championship' %}">Resetar Campeonato</a>
+            <!-- <a class="button is-danger" href="{% url 'reset_championship' %}">Resetar Campeonato</a> -->
+            <a class="button is-danger" href="{% url 'reset_championship' %}"
+                onclick="return confirm('Tem certeza que deseja resetar o campeonato?')">Resetar Campeonato</a>
+
+
             <!-- Adicionado botão Reset -->
             <div class="table-container">
                 <table class="table is-fullwidth is-hoverable is-striped is-responsive">
@@ -165,6 +169,10 @@
                             <td>
                                 <a class="button is-link" href="{% url 'update_result' match.id %}">Inserir
                                     Resultado</a>
+                                <!-- <a class="button is-danger" href="{% url 'delete_match' match.id %}">Excluir Partida</a> -->
+                                <a class="button is-danger" href="{% url 'delete_match' match.id %}"
+                                    onclick="return confirm('Tem certeza que deseja excluir esta partida?')">Excluir
+                                    Partida</a>
                             </td>
                         </tr>
                         {% endfor %}

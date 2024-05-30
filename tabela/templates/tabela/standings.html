@@ -109,7 +109,7 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">Tabela de Pontos Corridos</h1>
+            <h1 class="title"> TABELA </h1>
             <a class="button is-link" href="{% url 'add_team' %}">Adicionar Time</a>
             <a class="button is-link" href="{% url 'add_match' %}">Adicionar Partida</a>
             <!-- <a class="button is-danger" href="{% url 'reset_championship' %}">Resetar Campeonato</a> -->
@@ -152,7 +152,8 @@
                     </tbody>
                 </table>
 
-                <h2 class="title">Inserir Resultados</h2>
+                <br>
+                <h2 class="title">JOGOS</h2>
                 <table class="table is-fullwidth is-hoverable is-striped is-responsive">
                     <thead>
                         <tr>
@@ -178,8 +179,35 @@
                         {% endfor %}
                     </tbody>
                 </table>
+
+                <table class="table is-fullwidth is-hoverable is-striped is-responsive">
+                    <br><br>
+                    <h2 class="title">ARTILHARIA</h2>
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td style="text-align: left;">{% if top_scorer %}
+                            <p>Time <strong> {{ top_scorer.home_team__name }}</strong>
+                                com <strong>{{top_scorer.total_goals}}</strong> gols.
+                            </p>
+                            {% else %}
+                            <p>Ainda não houve gols marcados.</p>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    <th></th>
+
+
+                </table>
+                <br><br><br><br>
             </div>
         </div>
+
     </section>
 </body>
 

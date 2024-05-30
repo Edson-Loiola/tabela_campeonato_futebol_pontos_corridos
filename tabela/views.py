@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Team, Match, Standings
 from .forms import TeamForm, MatchForm, ResultForm
+from django.db.models import Sum
 
 def add_team_view(request):
     if request.method == 'POST':
@@ -26,8 +27,15 @@ def add_match_view(request):
 
 def standings_view(request):
     standings = Standings.objects.order_by('-points', '-goal_difference', '-goals_for')
-    matches = Match.objects.all()  # Modificação aqui
-    return render(request, 'tabela/standings.html', {'standings': standings, 'matches': matches})
+    matches = Match.objects.all() 
+
+    # Calcular o time que marcou mais gols
+    goals_by_team = Match.objects.filter(played=True).values('home_team__name').annotate(total_goals=Sum('home_score'))
+    goals_by_team = goals_by_team.union(Match.objects.filter(played=True).values('away_team__name').annotate(total_goals=Sum('away_score')))   
+    top_scorer = max(goals_by_team, key=lambda x: x['total_goals']) if goals_by_team else None   
+
+    return render(request, 'tabela\standings.html', {'standings': standings, 'matches': matches, 'top_scorer': top_scorer}) 
+
 
 def update_result_view(request, match_id):
     match = get_object_or_404(Match, id=match_id)
